@@ -32,6 +32,7 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="gradient-primary text-white border-0 hover:opacity-90 transition-smooth text-lg px-8 py-4 glow-primary"
+              onClick={() => window.location.href = '/auth'}
             >
               Commencer maintenant
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -40,6 +41,7 @@ const Hero = () => {
               variant="outline" 
               size="lg"
               className="text-lg px-8 py-4 bg-surface/50 backdrop-blur-sm border-border hover:bg-surface/70 transition-smooth"
+              onClick={() => window.location.href = '/dashboard'}
             >
               Découvrir la communauté
             </Button>
