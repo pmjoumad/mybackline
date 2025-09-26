@@ -5,10 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, AlertCircle } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/contexts/AuthContext";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export function AuthForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +14,6 @@ export function AuthForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { toast } = useToast();
-  const { signInDemo } = useAuth();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,9 +28,14 @@ export function AuthForm() {
 
     setIsLoading(true);
     try {
+      const redirectUrl = `${window.location.origin}/`;
+      
       const { error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: redirectUrl
+        }
       });
 
       if (error) throw error;
@@ -92,30 +94,6 @@ export function AuthForm() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {/* Mode Démonstration */}
-          <Alert className="mb-6">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>
-              Mode démonstration - Cliquez sur "Démo" pour tester l'interface sans inscription
-            </AlertDescription>
-          </Alert>
-
-          <div className="mb-4">
-            <Button
-              onClick={() => {
-                signInDemo();
-                toast({
-                  title: "Mode démonstration activé !",
-                  description: "Vous pouvez maintenant explorer BackLine",
-                });
-              }}
-              className="w-full mb-4"
-              variant="outline"
-            >
-              🎵 Essayer en mode démonstration
-            </Button>
-          </div>
-
           <Tabs defaultValue="signin" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="signin">Connexion</TabsTrigger>
