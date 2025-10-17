@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,7 @@ import { Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 export function AuthForm() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,8 +44,13 @@ export function AuthForm() {
 
       toast({
         title: "Inscription réussie !",
-        description: "Vérifiez votre email pour confirmer votre compte.",
+        description: "Redirection vers le dashboard...",
       });
+      
+      // Redirection automatique vers le dashboard
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1500);
     } catch (error) {
       toast({
         title: "Erreur d'inscription",
