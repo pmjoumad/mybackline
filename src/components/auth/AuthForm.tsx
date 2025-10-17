@@ -78,6 +78,11 @@ export function AuthForm() {
         title: "Connexion réussie !",
         description: "Bienvenue sur BackLine",
       });
+      
+      // Redirection automatique vers le dashboard
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1500);
     } catch (error) {
       toast({
         title: "Erreur de connexion",
