@@ -14,7 +14,334 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      band_events: {
+        Row: {
+          band_id: string
+          created_at: string
+          created_by: string
+          description: string | null
+          event_date: string
+          id: string
+          location: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          band_id: string
+          created_at?: string
+          created_by: string
+          description?: string | null
+          event_date: string
+          id?: string
+          location?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          band_id?: string
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          event_date?: string
+          id?: string
+          location?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "band_events_band_id_fkey"
+            columns: ["band_id"]
+            isOneToOne: false
+            referencedRelation: "bands"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      band_files: {
+        Row: {
+          band_id: string
+          created_at: string
+          file_name: string
+          file_size: number | null
+          file_type: string
+          file_url: string
+          id: string
+          uploaded_by: string
+        }
+        Insert: {
+          band_id: string
+          created_at?: string
+          file_name: string
+          file_size?: number | null
+          file_type: string
+          file_url: string
+          id?: string
+          uploaded_by: string
+        }
+        Update: {
+          band_id?: string
+          created_at?: string
+          file_name?: string
+          file_size?: number | null
+          file_type?: string
+          file_url?: string
+          id?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "band_files_band_id_fkey"
+            columns: ["band_id"]
+            isOneToOne: false
+            referencedRelation: "bands"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      band_members: {
+        Row: {
+          band_id: string
+          id: string
+          joined_at: string
+          role: string | null
+          user_id: string
+        }
+        Insert: {
+          band_id: string
+          id?: string
+          joined_at?: string
+          role?: string | null
+          user_id: string
+        }
+        Update: {
+          band_id?: string
+          id?: string
+          joined_at?: string
+          role?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "band_members_band_id_fkey"
+            columns: ["band_id"]
+            isOneToOne: false
+            referencedRelation: "bands"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      band_setlists: {
+        Row: {
+          band_id: string
+          created_at: string
+          created_by: string
+          id: string
+          name: string
+          songs: Json
+          updated_at: string
+        }
+        Insert: {
+          band_id: string
+          created_at?: string
+          created_by: string
+          id?: string
+          name: string
+          songs?: Json
+          updated_at?: string
+        }
+        Update: {
+          band_id?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          name?: string
+          songs?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "band_setlists_band_id_fkey"
+            columns: ["band_id"]
+            isOneToOne: false
+            referencedRelation: "bands"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      bands: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      hub_locations: {
+        Row: {
+          address: string
+          category: Database["public"]["Enums"]["hub_category"]
+          city: string
+          created_at: string
+          description: string | null
+          id: string
+          latitude: number
+          longitude: number
+          name: string
+          phone: string | null
+          website: string | null
+        }
+        Insert: {
+          address: string
+          category: Database["public"]["Enums"]["hub_category"]
+          city: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          latitude: number
+          longitude: number
+          name: string
+          phone?: string | null
+          website?: string | null
+        }
+        Update: {
+          address?: string
+          category?: Database["public"]["Enums"]["hub_category"]
+          city?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          latitude?: number
+          longitude?: number
+          name?: string
+          phone?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          band_id: string | null
+          content: string
+          created_at: string
+          id: string
+          recipient_id: string | null
+          sender_id: string
+        }
+        Insert: {
+          band_id?: string | null
+          content: string
+          created_at?: string
+          id?: string
+          recipient_id?: string | null
+          sender_id: string
+        }
+        Update: {
+          band_id?: string | null
+          content?: string
+          created_at?: string
+          id?: string
+          recipient_id?: string | null
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_band_id_fkey"
+            columns: ["band_id"]
+            isOneToOne: false
+            referencedRelation: "bands"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          audio_samples: string[] | null
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          display_name: string
+          id: string
+          influences: string | null
+          instruments: string[]
+          latitude: number | null
+          level: Database["public"]["Enums"]["musician_level"]
+          location_city: string | null
+          location_department: string | null
+          longitude: number | null
+          musical_styles: string[] | null
+          objective: Database["public"]["Enums"]["musician_objective"]
+          soundcloud_url: string | null
+          spotify_url: string | null
+          updated_at: string
+          youtube_url: string | null
+        }
+        Insert: {
+          audio_samples?: string[] | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          display_name: string
+          id: string
+          influences?: string | null
+          instruments?: string[]
+          latitude?: number | null
+          level?: Database["public"]["Enums"]["musician_level"]
+          location_city?: string | null
+          location_department?: string | null
+          longitude?: number | null
+          musical_styles?: string[] | null
+          objective: Database["public"]["Enums"]["musician_objective"]
+          soundcloud_url?: string | null
+          spotify_url?: string | null
+          updated_at?: string
+          youtube_url?: string | null
+        }
+        Update: {
+          audio_samples?: string[] | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          display_name?: string
+          id?: string
+          influences?: string | null
+          instruments?: string[]
+          latitude?: number | null
+          level?: Database["public"]["Enums"]["musician_level"]
+          location_city?: string | null
+          location_department?: string | null
+          longitude?: number | null
+          musical_styles?: string[] | null
+          objective?: Database["public"]["Enums"]["musician_objective"]
+          soundcloud_url?: string | null
+          spotify_url?: string | null
+          updated_at?: string
+          youtube_url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +350,14 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      hub_category: "studio" | "scene_ouverte" | "magasin"
+      musician_level: "1" | "2" | "3" | "4" | "5"
+      musician_objective:
+        | "jam"
+        | "projet_serieux"
+        | "session_remuneree"
+        | "cover_band"
+        | "groupe_original"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +484,16 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      hub_category: ["studio", "scene_ouverte", "magasin"],
+      musician_level: ["1", "2", "3", "4", "5"],
+      musician_objective: [
+        "jam",
+        "projet_serieux",
+        "session_remuneree",
+        "cover_band",
+        "groupe_original",
+      ],
+    },
   },
 } as const
